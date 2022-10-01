@@ -3,6 +3,7 @@ package cz.los;
 import cz.los.cmd.CmdParser;
 import cz.los.cmd.Configuration;
 import cz.los.cmd.Mode;
+import cz.los.model.BruteForceDecoder;
 import cz.los.model.Decoder;
 import cz.los.model.Encoder;
 
@@ -20,10 +21,16 @@ public class App {
     }
 
     private void run() {
-        if (Mode.ENCODE.equals(config.getMode())) {
-            new Encoder(config).encode();
-        } else {
-            new Decoder(config).decode();
+        Mode mode = config.getMode();
+        switch (mode) {
+            case ENCODE:
+                new Encoder(config).encode();
+                break;
+            case DECODE:
+                new Decoder(config).decode();
+                break;
+            case BRUTE_FORCE:
+                new BruteForceDecoder(config).decodeBruteForce();
         }
     }
 

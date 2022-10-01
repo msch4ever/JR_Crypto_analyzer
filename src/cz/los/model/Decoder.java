@@ -1,20 +1,22 @@
 package cz.los.model;
 
 import cz.los.cmd.Configuration;
+import cz.los.cmd.Mode;
 import cz.los.util.Dictionary;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Decoder extends CharShifter {
+import static cz.los.util.Dictionary.ALPHABET_SIZE;
 
-    private final Path sampleFile;
+public class Decoder extends CharShifter {
 
     public Decoder(Configuration configuration) {
        super(configuration);
-       this.sampleFile = configuration.getSampleFilePath();
     }
 
     @Override
