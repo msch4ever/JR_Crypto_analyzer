@@ -1,7 +1,6 @@
-package cz.los.encoder;
+package cz.los.model;
 
 import cz.los.cmd.Configuration;
-import cz.los.util.Dictionary;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,28 +10,35 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
-public class Encoder {
+public abstract class CharShifter {
 
-    public static final int KILOBYTE = 1024;
-    private final Path originFile;
-    private final Path encodedFile;
-    private final Map<Character, Character> shiftedDictionary;
+    protected static final int KILOBYTE = 1024;
+    protected final Path originFile;
+    protected final Path destinationFile;
+    protected final Map<Character, Character> shiftedDictionary;
 
-    public Encoder(Configuration configuration) {
+    public CharShifter(Configuration configuration) {
         this.originFile = configuration.getSourceFilePath();
-        String encodedFileName = originFile.getFileName().toString().replace(".txt", "_encoded.txt");
-        this.encodedFile = Paths.get(originFile.getParent().toString() + "/" + encodedFileName);
-        this.shiftedDictionary = Collections.unmodifiableMap(Dictionary.provideShiftedDictionary(configuration.getKey()));
+        String destinationFileName = resolveDestinationFileName();
+        this.destinationFile = Paths.get(originFile.getParent().toString() + "/" + destinationFileName);
+        if (configuration.getKey() != null) {
+            this.shiftedDictionary = resolveDictionary(configuration);
+        } else {
+            shiftedDictionary = new HashMap<>();
+        }
     }
 
-    public void encode() {
-        System.out.println("Starting encoding process...");
+    protected abstract String resolveDestinationFileName();
+
+    protected abstract Map<Character, Character> resolveDictionary(Configuration configuration);
+
+    public void shiftCharsInFile() {
         long start = System.currentTimeMillis();
         try (BufferedReader fileReader = new BufferedReader(new FileReader(originFile.toFile()), KILOBYTE);
-             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(encodedFile.toFile()), KILOBYTE)) {
+             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(destinationFile.toFile()), KILOBYTE)) {
             System.out.println("Reading and writing in chunks...");
             int counter = 1;
             while (fileReader.ready()) {
@@ -54,9 +60,7 @@ public class Encoder {
             System.exit(1);
         }
         long end = System.currentTimeMillis();
-        System.out.println(String.format("Encoding done. Check the file at %s", encodedFile));
-        System.out.println(String.format("File encoding took %d milliseconds.", end - start));
-
+        System.out.println(String.format("File processing took %d milliseconds.", end - start));
     }
 
     private void introduceOffset(char[] buffer) {

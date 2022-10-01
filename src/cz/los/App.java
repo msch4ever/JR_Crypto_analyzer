@@ -3,8 +3,8 @@ package cz.los;
 import cz.los.cmd.CmdParser;
 import cz.los.cmd.Configuration;
 import cz.los.cmd.Mode;
-import cz.los.decoder.Decoder;
-import cz.los.encoder.Encoder;
+import cz.los.model.Decoder;
+import cz.los.model.Encoder;
 
 public class App {
 
