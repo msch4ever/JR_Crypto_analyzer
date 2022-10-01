@@ -2,6 +2,9 @@ package cz.los;
 
 import cz.los.cmd.CmdParser;
 import cz.los.cmd.Configuration;
+import cz.los.cmd.Mode;
+import cz.los.decoder.Decoder;
+import cz.los.encoder.Encoder;
 
 public class App {
 
@@ -13,7 +16,15 @@ public class App {
 
     public static void main(String[] args) {
         App cryptoMachine = new App(new CmdParser().parseCmd(args));
-        System.out.println(cryptoMachine.config);
+        cryptoMachine.run();
+    }
+
+    private void run() {
+        if (Mode.ENCODE.equals(config.getMode())) {
+            new Encoder(config).encode();
+        } else {
+            new Decoder(config).decode();
+        }
     }
 
 }
