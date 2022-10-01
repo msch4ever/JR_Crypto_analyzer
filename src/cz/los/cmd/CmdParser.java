@@ -41,6 +41,9 @@ public class CmdParser {
         if (!Files.exists(path) || Files.isDirectory(path)) {
             throw new IllegalArgumentException("File with provided path does not exists or is a directory. Path=" + pathString);
         }
+        if (!pathString.endsWith(".txt")) {
+            throw new IllegalArgumentException("Extension of the provided file is not supported. Expected '.txt'.\nProvided file name: " + path.getFileName());
+        }
         return path;
     }
 
