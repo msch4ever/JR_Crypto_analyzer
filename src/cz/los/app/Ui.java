@@ -1,7 +1,5 @@
 package cz.los.app;
 
-import cz.los.cmd.Configuration;
-import cz.los.cmd.Mode;
 import cz.los.model.BruteForceDecoder;
 import cz.los.model.Encoder;
 

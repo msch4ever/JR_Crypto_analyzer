@@ -1,6 +1,6 @@
 package cz.los.model;
 
-import cz.los.cmd.Configuration;
+import cz.los.app.Configuration;
 import cz.los.util.Dictionary;
 
 import java.util.Collections;

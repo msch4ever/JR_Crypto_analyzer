@@ -1,7 +1,7 @@
 package cz.los.model;
 
-import cz.los.cmd.Configuration;
-import cz.los.cmd.Mode;
+import cz.los.app.Configuration;
+import cz.los.app.Mode;
 import cz.los.util.Dictionary;
 
 import java.nio.file.Path;

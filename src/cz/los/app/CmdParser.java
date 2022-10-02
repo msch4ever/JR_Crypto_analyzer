@@ -1,4 +1,4 @@
-package cz.los.cmd;
+package cz.los.app;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
