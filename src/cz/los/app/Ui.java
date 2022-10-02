@@ -28,7 +28,7 @@ public class Ui extends JFrame{
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        header = new JLabel("This app allows you to encode/decode your '.txt' file using Cesar's cypher.");
+        header = new JLabel("This app allows you to encode/decode your '.txt' file using Cesar's cipher.");
         header.setFont(new Font("BOLD", Font.BOLD, 15));
         header.setHorizontalAlignment(SwingConstants.CENTER);
 
