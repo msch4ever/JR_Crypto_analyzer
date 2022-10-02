@@ -1,6 +1,7 @@
 package cz.los.app;
 
 import cz.los.model.BruteForceDecoder;
+import cz.los.model.Decoder;
 import cz.los.model.Encoder;
 
 import javax.swing.*;
@@ -104,7 +105,11 @@ public class Ui extends JFrame{
         int answer = JOptionPane.showConfirmDialog(this, String.format("Do you want to %s provided file?", mode.fullName));
 
         if (answer == 0) {
-            new Encoder(configBuilder.build()).encode();
+            if (Mode.ENCODE.equals(mode)) {
+                new Encoder(configBuilder.build()).encode();
+            } else if (Mode.DECODE.equals(mode)) {
+                new Decoder(configBuilder.build()).decode();
+            }
             JOptionPane.showMessageDialog(this, String.format("You can find your %sed file in the same directory as the source.", mode.fullName));
         } else {
             System.out.println(String.format("File %s process aborted...", mode.fullName));
