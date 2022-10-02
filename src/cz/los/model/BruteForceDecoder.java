@@ -2,13 +2,12 @@ package cz.los.model;
 
 import cz.los.cmd.Configuration;
 import cz.los.cmd.Mode;
+import cz.los.util.Dictionary;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static cz.los.util.Dictionary.ALPHABET_SIZE;
 
 public class BruteForceDecoder extends Decoder {
 
@@ -79,7 +78,8 @@ public class BruteForceDecoder extends Decoder {
         for (int i = 0; i < firstChars.length; i++) {
             int currentOffset = secondChars[i] - firstChars[i];
             if (currentOffset < 0) {
-                currentOffset = currentOffset + ALPHABET_SIZE;
+                int alphabetSize = getCorrespondingAlphabetSize(secondChars[i]);
+                currentOffset = currentOffset + alphabetSize;
             }
             if (offset == null) {
                 offset = currentOffset;
@@ -89,5 +89,15 @@ public class BruteForceDecoder extends Decoder {
             }
         }
         return offset;
+    }
+
+    private int getCorrespondingAlphabetSize(char c) {
+        if (Dictionary.LOWERCASE_LATIN.contains(Character.toLowerCase(c))) {
+            return Dictionary.LATIN_ALPHABET_SIZE;
+        }
+        if (Dictionary.LOWERCASE_CYRILLIC.contains(Character.toLowerCase(c))) {
+            return Dictionary.CYRILLIC_ALPHABET_SIZE;
+        }
+        return 0;
     }
 }

@@ -19,7 +19,7 @@ public class TextAnalyzer {
 
         try (BufferedReader fileReader = new BufferedReader(new FileReader(file.toFile()))) {
             while (fileReader.ready()) {
-                String[] splitInput = fileReader.readLine().toLowerCase().split("[^a-z-]+");
+                String[] splitInput = fileReader.readLine().toLowerCase().split("[^a-zа-яё-]+");
 
                 countWordsByLength(splitInput);
             }
