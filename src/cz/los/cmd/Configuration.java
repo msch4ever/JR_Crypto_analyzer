@@ -16,6 +16,10 @@ public class Configuration {
         this.sampleFilePath = sampleFilePath;
     }
 
+    public static ConfigBuilder builder() {
+        return new ConfigBuilder();
+    }
+
     public Mode getMode() {
         return mode;
     }
@@ -40,5 +44,37 @@ public class Configuration {
                 ", key=" + key +
                 ", sampleFilePath=" + sampleFilePath +
                 '}';
+    }
+
+    public static class ConfigBuilder {
+
+        private Mode mode;
+        private Path sourceFilePath;
+        private Integer key;
+        private Path sampleFilePath;
+
+        public Configuration build() {
+            return new Configuration(mode, sourceFilePath, key, sampleFilePath);
+        }
+
+        public ConfigBuilder mode(Mode mode) {
+            this.mode = mode;
+            return this;
+        }
+
+        public ConfigBuilder sourceFilePath(Path sourceFilePath) {
+            this.sourceFilePath = sourceFilePath;
+            return this;
+        }
+
+        public ConfigBuilder key(Integer key) {
+            this.key = key;
+            return this;
+        }
+
+        public ConfigBuilder sampleFilePath(Path sampleFilePath) {
+            this.sampleFilePath = sampleFilePath;
+            return this;
+        }
     }
 }

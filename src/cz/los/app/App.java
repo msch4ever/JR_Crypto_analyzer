@@ -1,4 +1,4 @@
-package cz.los;
+package cz.los.app;
 
 import cz.los.cmd.CmdParser;
 import cz.los.cmd.Configuration;
@@ -6,6 +6,9 @@ import cz.los.cmd.Mode;
 import cz.los.model.BruteForceDecoder;
 import cz.los.model.Decoder;
 import cz.los.model.Encoder;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class App {
 
@@ -16,7 +19,29 @@ public class App {
     }
 
     public static void main(String[] args) {
-        App cryptoMachine = new App(new CmdParser().parseCmd(args));
+        if (args.length == 0) {
+            runUiApp();
+        } else {
+            runCmdApp(args);
+        }
+    }
+
+    private static void runUiApp() {
+        EventQueue.invokeLater(() -> {
+            Ui runner = new Ui();
+            runner.setVisible(true);
+
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private static void runCmdApp(String[] args) {
+        Configuration config = new CmdParser().parseCmd(args);
+        App cryptoMachine = new App(config);
         cryptoMachine.run();
     }
 
